@@ -1,0 +1,24 @@
+[Unit]
+Description=Hoarder Chrome
+Requires=podman.socket
+After=podman.socket
+
+[Container]
+AutoUpdate=registry
+User=1000
+Pod=hoarder.pod
+ContainerName=hoarder-chrome
+Image=gcr.io/zenika-hub/alpine-chrome:123
+Exec=--no-sandbox
+Exec=--disable-gpu
+Exec=--disable-dev-shm-usage
+Exec=--remote-debugging-address=0.0.0.0
+Exec=--remote-debugging-port=9222
+Exec=--hide-scrollbars
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

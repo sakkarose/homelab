@@ -1,0 +1,22 @@
+[Unit]
+Description=Hoarder Meilisearch
+Requires=podman.socket
+After=podman.socket
+
+[Container]
+AutoUpdate=registry
+ContainerName=hoarder-meilisearch
+Image=docker.io/getmeili/meilisearch:v1.11.1
+Environment=MEILI_NO_ANALYTICS=true
+EnvironmentFile=/var/home/core/core-str/hoarder/.env
+Volume=/var/home/core/core-str/hoarder/meilisearch:/meili_data:z
+Pod=hoarder.pod
+User=1000
+LogDriver=json-file
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

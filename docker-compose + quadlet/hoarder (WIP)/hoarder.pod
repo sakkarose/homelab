@@ -1,0 +1,4 @@
+[Pod]
+PodName=hoarder-pod
+ServiceName=hoarder
+PublishPort=3002:3000

@@ -1,0 +1,4 @@
+[Pod]
+PodName=vikunja-pod
+ServiceName=vikunja
+PublishPort=8090:3456

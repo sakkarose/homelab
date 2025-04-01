@@ -1,0 +1,27 @@
+[Unit]
+Description=Vikunja Core
+Requires=podman.socket vikunja-db.service
+After=podman.socket vikunja-db.service
+
+[Container]
+AutoUpdate=registry
+
+ContainerName=vikunja-core
+Image=docker.io/vikunja/vikunja:latest
+Environment=VIKUNJA_SERVICE_PUBLICURL=http://01-mira-coreos:8090
+Environment=VIKUNJA_DATABASE_HOST=vikunja-db
+Environment=VIKUNJA_DATABASE_PASSWORD="MySQL DB Password"
+Environment=VIKUNJA_DATABASE_TYPE=mysql
+Environment=VIKUNJA_DATABASE_USER=vikunja
+Environment=VIKUNJA_DATABASE_DATABASE=vikunja
+Environment=VIKUNJA_SERVICE_JWTSECRET="JWT Secret"
+Volume=/var/home/core/core-str/vikunja/files:/app/vikunja/files:z
+Pod=vikunja.pod
+User=1000
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

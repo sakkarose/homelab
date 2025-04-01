@@ -1,0 +1,12 @@
+services:
+  asf:
+    image: justarchi/archisteamfarm:latest
+    container_name: asf
+    environment:
+      - ASF_CRYPTKEY="WebUIPassword"
+    volumes:
+      - /var/home/core/core-str/asf/config:/app/config:Z
+      - /var/home/core/core-str/asf/plugins:/app/plugins:Z
+    restart: unless-stopped
+    ports:
+      - 1242:1242

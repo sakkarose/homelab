@@ -1,0 +1,36 @@
+services:
+  vikunja:
+    container_name: vikunja
+    image: vikunja/vikunja
+    environment:
+      VIKUNJA_SERVICE_PUBLICURL: http://01-mira-coreos:8090
+      VIKUNJA_DATABASE_HOST: db
+      VIKUNJA_DATABASE_PASSWORD: "MySQL DB Password"
+      VIKUNJA_DATABASE_TYPE: mysql
+      VIKUNJA_DATABASE_USER: vikunja
+      VIKUNJA_DATABASE_DATABASE: vikunja
+      VIKUNJA_SERVICE_JWTSECRET: "JWT Secret"
+    ports:
+      - 8090:3456
+    volumes:
+      - /var/home/core/core-str/vikunja/files:/app/vikunja/files:Z
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+  db:
+    container_name: vikunja-mysql
+    image: mariadb:10
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: "MySQL Root Password"
+      MYSQL_USER: vikunja
+      MYSQL_PASSWORD: "MySQL DB Password"
+      MYSQL_DATABASE: vikunja
+    volumes:
+      - /var/home/core/core-str/vikunja/db:/var/lib/mysql:z
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u $$MYSQL_USER --password=$$MYSQL_PASSWORD"]
+      interval: 2s
+      start_period: 30s

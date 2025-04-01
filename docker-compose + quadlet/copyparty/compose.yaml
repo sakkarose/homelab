@@ -1,0 +1,18 @@
+services:
+  copyparty:
+    image: copyparty/ac:latest
+    container_name: copyparty
+    ports:
+      - 3923:3923
+    volumes:
+      - /home/user/alpine_str/docker_vol/copyparty:/cfg:z
+#      - /home/user/alpine_str:/w:z
+      - /home/user/share:/share:z
+    stop_grace_period: 15s
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q 127.0.0.1:3923/?reset"]
+      interval: 1m
+      timeout: 2s
+      retries: 5
+      start_period: 15s

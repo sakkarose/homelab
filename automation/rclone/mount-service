@@ -1,0 +1,52 @@
+# This is an init service unit for Alpine
+
+#!/sbin/openrc-run
+
+name="rclone-mount"
+command="/usr/bin/rclone"
+pidfile="/var/run/rclone-mount.pid"
+command_background="no"
+
+depend() {
+    need net
+}
+
+start() {
+    ebegin "Starting ${name}"
+    start-stop-daemon --start --background \
+                      --make-pidfile --pidfile ${pidfile} \
+                      --exec $command \
+                      -- mount \
+                      --config=/root/.config/rclone/rclone.conf en-gd_thweenty7_2tb: /home/user/calibre_lib \
+                      --allow-non-empty \
+                      --allow-other \
+                      --vfs-cache-mode off \
+    eend "$?"
+}
+
+stop() {
+    ebegin "Stopping ${name}"
+
+    # Attempt graceful stop of rclone process
+    start-stop-daemon --stop --pidfile ${pidfile} \
+        || start-stop-daemon --stop --exec ${command}
+
+    # Wait for a short period to allow unmounting to complete
+    sleep 2
+
+    # Check if the mount point is still active
+    if mountpoint -q /home/user/calibre_lib; then
+        # If still mounted, attempt a normal unmount again
+        umount /home/user/calibre_lib
+
+        # Check again if unmount was successful
+        if mountpoint -q /home/user/calibre_lib; then
+            eerror "Failed to unmount /home/user/calibre_lib"
+            eend 1
+        else
+            eend 0
+        fi
+    else
+        eend 0
+    fi
+}

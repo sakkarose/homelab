@@ -1,0 +1,20 @@
+services:
+  calibre-web:
+    image: lscr.io/linuxserver/calibre-web:nightly
+    container_name: calibre-web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Ho_Chi_Minh
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
+      - OAUTHLIB_RELAX_TOKEN_SCOPE=1
+      - OAUTHLIB_INSECURE_TRANSPORT=1
+      - HTTP_X_SCHEME=https
+    volumes:
+      - /home/user/alpine_str/docker_vol/calibre-web:/config
+    ports:
+      - 8083:8083
+    restart: unless-stopped
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1

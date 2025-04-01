@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Send 'tart' signal to Uptime Kuma
+curl -fsS -m 10 --retry 5 -o /dev/null "https://uptime.mizu.reisen/api/push/QPLaMXGHNy?status=up&msg=rclone_sync_started"
+
+# Execute the rclone sync command and store exit statuses
+EXIT_STATUS_1=0
+timeout 60s /usr/bin/rclone copyto /root/.config/rclone/rclone.conf /home/user/alpine_str/others/rclone
+EXIT_STATUS_1=$?
+
+EXIT_STATUS_2=0
+timeout 60s /usr/bin/rclone copyto /etc/crontabs/root /home/user/alpine_str/others/rclone
+EXIT_STATUS_2=$?
+
+EXIT_STATUS_3=0
+timeout 60s /usr/bin/rclone copy /etc/periodic/rclone-daily /home/user/alpine_str/others/rclone
+EXIT_STATUS_3=$?
+
+# Check if all commands were successful
+if [ $EXIT_STATUS_1 -eq 0 ] && [ $EXIT_STATUS_2 -eq 0 ] && [ $EXIT_STATUS_3 -eq 0 ]; then
+    # All commands successful, send completion signal
+    curl -fsS -m 10 --retry 5 -o /dev/null "https://uptime.mizu.reisen/api/push/QPLaMXGHNy?status=up&msg=rclone_sync_completed"
+else
+    FAILED_COMMANDS=""
+    if [ $EXIT_STATUS_1 -ne 0 ]; then
+        FAILED_COMMANDS+="rclone.conf-copyto-job_failed"
+    fi
+    if [ $EXIT_STATUS_2 -ne 0 ]; then
+        FAILED_COMMANDS+="crontabs-copyto-job_failed"
+    fi
+    if [ $EXIT_STATUS_3 -ne 0 ]; then
+        FAILED_COMMANDS+="scripts-copyto-job_failed"
+    fi
+    curl -fsS -m 10 --retry 5 -o /dev/null "https://uptime.mizu.reisen/api/push/QPLaMXGHNy?status=down&msg=rclone_sync_failed:${FAILED_COMMANDS}"
+fi

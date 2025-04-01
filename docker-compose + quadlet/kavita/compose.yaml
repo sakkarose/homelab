@@ -1,0 +1,12 @@
+services:
+  kavita:
+    image: jvmilazz0/kavita:latest
+    container_name: kavita
+    restart: unless-stopped
+    ports:
+      - "5001:5000"
+    volumes:
+      - /home/user/alpine_str/docker_vol/kavita/manga:/manga
+      - /home/user/alpine_str/docker_vol/kavita/config:/kavita/config
+    environment:
+      - TZ=Ho_Chi_Minh

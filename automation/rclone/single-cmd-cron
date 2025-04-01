@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Send 'start' signal to Uptime Kuma
+curl -fsS -m 10 --retry 5 -o /dev/null "https://uptime.mizu.reisen/api/push/6tms2nqI8K?status=up&msg=rclone_sync_started"
+
+# Execute the rclone sync command
+timeout 15m /usr/bin/rclone sync gd-thweenty7_2tb:/calibre_lib encrypted-calibre_baklib:/
+
+# Check the exit status of rclone and send appropriate signal to Uptime Kuma
+if [ $? -eq 0 ]; then
+    curl -fsS -m 10 --retry 5 -o /dev/null "https://uptime.mizu.reisen/api/push/6tms2nqI8K?status=up&msg=rclone_sync_completed"
+else
+    curl -fsS -m 10 --retry 5 -o /dev/null "https://uptime.mizu.reisen/api/push/6tms2nqI8K?status=down&msg=rclone_sync_failed"
+fi

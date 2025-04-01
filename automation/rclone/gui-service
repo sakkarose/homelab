@@ -1,0 +1,25 @@
+# This is an init service unit for Alpine
+
+#!/sbin/openrc-run
+
+name="rclone-gui"
+command="/usr/bin/rclone"
+pidfile="/var/run/rclone-gui.pid"
+command_background="yes" 
+depend() {
+    need net 
+}
+
+start() {
+    ebegin "Starting ${name}"
+    start-stop-daemon --start --background \
+                      --make-pidfile --pidfile ${pidfile} \
+                      --exec $command \
+                      -- rcd \
+                      --rc-web-gui --rc-addr :5572 \
+                      --rc-user user --rc-pass RclonePassword \
+                      --rc-web-gui-no-open-browser --rc-web-gui-update \
+                      --rc-min-tls-version tls1.3
+    eend "$?"
+}
+

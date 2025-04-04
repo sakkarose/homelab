@@ -1,0 +1,16 @@
+services:
+    glances:
+        container_name: glances
+        restart: always
+        ports:
+            - '61208-61209:61208-61209'
+        environment:
+            - TZ=Asia/Ho_Chi_Minh
+            - 'GLANCES_OPT=-w --browser'
+        volumes:
+            - //home/user/.docker/run/docker.sock:/var/run/docker.sock:ro
+            - /etc/os-release:/etc/os-release:ro
+            - /home/user/alpine_str/docker_vol/glances/glances.conf:/glances.conf:ro
+        pid: host
+        image: 'nicolargo/glances:latest-full'
+        privileged: true

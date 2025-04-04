@@ -1,0 +1,28 @@
+services:
+  whatsupdocker:
+    image: getwud/wud
+    container_name: wud
+    volumes:
+      - /home/user/.docker/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - WUD_AUTH_BASIC_user_USER=user
+      - WUD_AUTH_BASIC_user_HASH="UserPassword"
+#      - WUD_TRIGGER_DISCORD_default_URL=
+#      - WUD_TRIGGER_DISCORD_default_BOTUSERNAME=wudie
+      - WUD_TRIGGER_NTFY_NOTI_AUTH_TOKEN="ntfyToken"
+#      - WUD_TRIGGER_NTFY_NOTI_AUTH_PASSWORD=
+#      - WUD_TRIGGER_NTFY_NOTI_AUTH_USER=
+      - WUD_TRIGGER_NTFY_NOTI_URL="ntfyServerUrl"
+      - WUD_TRIGGER_NTFY_NOTI_TOPIC=whatsupdocker
+      - WUD_TRIGGER_NTFY_NOTI_PRIORITY=2
+      - WUD_REGISTRY_HUB_PUBLIC_LOGIN="DockerHubUsername"
+      - WUD_REGISTRY_HUB_PUBLIC_PASSWORD="DockerHubPassword"
+      - WUD_REGISTRY_LSCR_PRIVATE_USERNAME="LSCRUsername"
+      - WUD_REGISTRY_LSCR_PRIVATE_TOKEN="LSCRToken"
+      - TZ=Asia/Ho_Chi_Minh
+    ports:
+      - 4000:3000
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    restart: unless-stopped

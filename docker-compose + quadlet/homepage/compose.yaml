@@ -8,8 +8,10 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - 'homepage:/app/config'
-      - //home/user/.docker/run/docker.sock:/var/run/docker.sock:ro
+      - /home/user/alpine_str/docker_vol/homepage:/app/config
+      - /home/user/alpine_str/docker_vol/homepage/icon:/app/public/icons
+      - /home/user/.docker/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
-volumes:
-    homepage: {}
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1

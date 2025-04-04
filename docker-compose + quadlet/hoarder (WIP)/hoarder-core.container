@@ -13,7 +13,6 @@ Environment=DATA_DIR=/data
 Volume=/var/home/core/core-str/hoarder/data:/data:z
 Pod=hoarder.pod
 EnvironmentFile=/var/home/core/core-str/hoarder/.env
-User=1000
 
 [Service]
 Restart=always

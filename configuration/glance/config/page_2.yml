@@ -1,0 +1,76 @@
+- name: Daily
+  columns:
+    - size: small
+      widgets:
+        - type: html
+          source: |
+             <div class="widget">
+                 <div class="widget-header">
+                     <h2 class="uppercase">TryHackMe Profile</h2>
+                 </div>
+                 <div class="tmh-badge">
+                     <iframe 
+                         src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=3664209" 
+                         style="border: none;"
+                         scrolling="no"
+                         height=82.5px
+                         frameborder="0">
+                     </iframe>
+                 </div>
+             </div>
+
+        - type: weather
+          location: ${WEATHER_LOCATION}
+          units: metric
+          hour-format: 12h
+          show-area-name: true
+
+        - type: server-stats
+          servers:
+            - type: local
+              name: 01-mira-coreos
+
+    - size: full
+      widgets:
+        - type: rss
+          limit: 10
+          collapse-after: 3
+          cache: 12h
+          feeds:
+            - url: https://selfh.st/rss/
+              title: sh
+            - url: https://feeds.feedburner.com/TheHackersNews
+              title: thn
+            - url: https://www.wired.com/feed/category/security/latest/rss
+              title: wired
+            - url: https://wazuh.com/feed/
+              title: wazuh
+
+        - type: videos
+          channels:
+            - UCP_eG7JBgRWNlNIOLYS6GZA
+            - UCld68syR8Wi-GY_n4CaoJGA
+            - UCsBjURrPoezykLs9EqgamOA
+            - UCTLUi3oc1-a7dS-2-YgEKmA
+            - UCUUTdohVElFLSP4NBnlPEwA
+            - UC7YOGHUfC1Tb6E4pudI9STA
+
+    - size: small
+      widgets:
+        - type: releases
+          cache: 1d
+          token: ${GITHUB_TOKEN}
+          show-source-icon: true
+          collapse-after: 20
+          repositories:
+            - glanceapp/glance
+            - cockpit-project/cockpit
+            - immich-app/immich
+            - dockerhub:vikunja/vikunja:latest
+            - karakeep-app/karakeep
+            - JustArchiNET/ArchiSteamFarm
+            - Kareadita/Kavita
+            - wazuh/wazuh
+            - wazuh/wazuh-docker
+            - tailscale/tailscale
+            - gohugoio/hugo

@@ -1,0 +1,11 @@
+services:
+  glance:
+    container_name: glance
+    image: docker.io/glanceapp/glance
+    volumes:
+      - /var/home/core/core-str/glance/config:/app/config
+      - /var/home/core/core-str/glance/assets:/app/assets
+      - /var/run/podman/podman.sock:/var/run/docker.sock:ro
+    ports:
+      - 2005:8080
+    env_file: /var/home/core/core-str/glance/.env

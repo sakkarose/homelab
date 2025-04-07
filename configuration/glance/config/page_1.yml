@@ -1,0 +1,51 @@
+- name: Start
+  width: slim
+  center-vertically: true
+  columns:
+    - size: full
+      widgets:
+        - type: search
+          autofocus: true
+          search-engine: duckduckgo
+          bangs:
+            - title: YouTube
+              shortcut: "yt"
+              url: https://www.youtube.com/results?search_query={QUERY}
+            - title: Reddit
+              shortcut: "rd"
+              url: https://www.reddit.com/search/?q={QUERY}
+            - title: Wikipedia
+              shortcut: "wk"
+              url: https://en.wikipedia.org/w/index.php?search={QUERY}
+            - title: Mazii Dictionary
+              shortcut: "jp"
+              url: https://mazii.net/en-US/search/word/jaen/{QUERY}
+            - title: Cambridge Dictionary
+              shortcut: "en"
+              url: https://dictionary.cambridge.org/spellcheck/english/?q={QUERY}
+            - title: Urban Dictionary
+              shortcut: "sl"
+              url: https://www.urbandictionary.com/define.php?term={QUERY}
+
+        - type: monitor
+          cache: 1m
+          title: Applications
+          style: compact
+          sites:
+            - title: ASF
+              url: http://01-mira-coreos:2000
+            - title: Cockpit
+              url: https://01-mira-coreos:9090
+              allow-insecure: true
+            - title: Glance
+              url: http://01-mira-coreos:2005
+            - title: Hugo
+              url: https://mizu.reisen
+            - title: Immich
+              url: http://01-mira-coreos:2004
+            - title: Karakeep
+              url: http://01-mira-coreos:2001
+            - title: Kavita
+              url: http://01-mira-coreos:2003
+            - title: Vikunja
+              url: http://01-mira-coreos:2002

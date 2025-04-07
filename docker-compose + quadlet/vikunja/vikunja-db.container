@@ -8,17 +8,16 @@ AutoUpdate=registry
 
 ContainerName=vikunja-db
 Image=docker.io/mariadb:10
-Exec=--character-set-server=utf8mb4
-Exec=--collation-server=utf8mb4_unicode_ci
-Environment=MYSQL_ROOT_PASSWORD="MySQL Root Password"
+Exec= --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+Environment=MYSQL_ROOT_PASSWORD=MYSQL_ROOT_PASSWORD
 Environment=MYSQL_USER=vikunja
-Environment=MYSQL_PASSWORD="MySQL DB Password"
+Environment=MYSQL_PASSWORD=MYSQL_PASSWORD
 Environment=MYSQL_DATABASE=vikunja
 Volume=/var/home/core/core-str/vikunja/db:/var/lib/mysql:z
+Volume=/etc/localtime:/etc/localtime:ro
 HealthCmd=mysqladmin ping -h localhost -u $MYSQL_USER --password=$MYSQL_PASSWORD
 HealthInterval=2s
 HealthStartPeriod=30s
-User=1000
 Pod=vikunja.pod
 
 [Service]

@@ -8,16 +8,16 @@ AutoUpdate=registry
 
 ContainerName=vikunja-core
 Image=docker.io/vikunja/vikunja:latest
-Environment=VIKUNJA_SERVICE_PUBLICURL=http://01-mira-coreos:8090
+Environment=VIKUNJA_SERVICE_PUBLICURL=http://01-mira-coreos:2002
 Environment=VIKUNJA_DATABASE_HOST=vikunja-db
-Environment=VIKUNJA_DATABASE_PASSWORD="MySQL DB Password"
+Environment=VIKUNJA_DATABASE_PASSWORD=VIKUNJA_DATABASE_PASSWORD
 Environment=VIKUNJA_DATABASE_TYPE=mysql
 Environment=VIKUNJA_DATABASE_USER=vikunja
 Environment=VIKUNJA_DATABASE_DATABASE=vikunja
-Environment=VIKUNJA_SERVICE_JWTSECRET="JWT Secret"
+Environment=VIKUNJA_SERVICE_JWTSECRET=VIKUNJA_SERVICE_JWTSECRET
 Volume=/var/home/core/core-str/vikunja/files:/app/vikunja/files:z
+Volume=/etc/localtime:/etc/localtime:ro
 Pod=vikunja.pod
-User=1000
 
 [Service]
 Restart=always

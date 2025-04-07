@@ -3,14 +3,14 @@
     - size: small
       widgets:
         - type: weather
-          location: Quan Bay
+          location: ${WEATHER_LOCATION}
           units: metric
           hour-format: 12h
           show-area-name: true
     - size: full
       widgets:
         - type: weather
-          location: Quan Bay
+          location: ${WEATHER_LOCATION}
           units: metric
           hour-format: 12h
           show-area-name: true

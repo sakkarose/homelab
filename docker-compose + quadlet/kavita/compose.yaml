@@ -4,9 +4,10 @@ services:
     container_name: kavita
     restart: unless-stopped
     ports:
-      - "5001:5000"
+      - "2003:5000"
     volumes:
-      - /home/user/alpine_str/docker_vol/kavita/manga:/manga
-      - /home/user/alpine_str/docker_vol/kavita/config:/kavita/config
+      - /var/home/core/core-str/kavita/book:/book:Z
+      - /var/home/core/core-str/kavita/config:/kavita/config:Z
     environment:
-      - TZ=Ho_Chi_Minh
+      - TZ=Asia/Ho_Chi_Minh
+      - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT="true"

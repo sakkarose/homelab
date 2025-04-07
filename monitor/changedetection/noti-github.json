@@ -1,0 +1,27 @@
+{%- set current_snapshot_2 = current_snapshot | replace('v', '', 1) -%}
+{%- set download_url = 'https://github.com/jumpserver/installer/releases/download/' + current_snapshot + '/jumpserver-installer-' + current_snapshot + '.tar.gz' -%}
+
+{
+  "username": "ChangeDetectionBot",
+  "avatar_url": "https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg",
+  "embeds": [
+    {
+      "title": "**{{watch_title}}**",
+      "url": "{{watch_url}}",
+      "color": 9096704,
+      "fields": [
+        {
+          "name": "Change(s):",
+          "value": "{{diff_removed | replace("\n", "\\n")}}"
+        },
+        {
+          "name": "To-do:",
+          "value": "{{ '[Ubuntu:Terminal]\\n' +
+                     'cd /opt && wget ' + download_url + '\\n' +
+                     'tar -xf jumpserver-installer-' + current_snapshot_2 + '.tar.gz && cd jumpserver-installer-' + current_snapshot_2 + '\\n' +
+                     './jmsctl.sh upgrade && ./jmsctl.sh start' }}"
+        }
+      ]
+    }
+  ]
+}

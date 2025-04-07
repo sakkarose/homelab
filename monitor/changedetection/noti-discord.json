@@ -1,0 +1,21 @@
+{
+    "username": "ChangeDetectionBot",
+    "avatar_url": "https://en.wikipedia.org/wiki/Cat#/media/File:Cat_August_2010-4.jpg",
+    "embeds": [
+      {
+        "title": "**{{watch_title}}**",
+        "url": "{{watch_url}}",
+        "color": 9096704,
+        "fields": [
+        {
+          "name": "Change(s):",
+          "value": "{{diff_removed | replace("\n", "\\n")}}"
+        },
+        {
+          "name": "To-do:",
+          "value": "{{ '[Auto-update]\\nAt next launch.'  }}"
+        }
+      ]
+      }
+    ]
+  }

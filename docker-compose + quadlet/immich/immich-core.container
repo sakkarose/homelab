@@ -1,0 +1,20 @@
+[Unit]
+Description=Immich Server
+Requires=podman.socket immich-db.service immich-redis.service
+After=podman.socket immich-db.service immich-redis.service
+
+[Container]
+AutoUpdate=registry
+ContainerName=immich-core
+Pod=immich.pod
+Volume=/var/home/core/core-str/immich/upload:/usr/src/app/upload:z
+Volume=/etc/localtime:/etc/localtime:ro
+Image=ghcr.io/immich-app/immich-server:release
+EnvironmentFile=/var/home/core/core-str/immich/.env
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

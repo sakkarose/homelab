@@ -1,0 +1,4 @@
+[Pod]
+PodName=immich-pod
+ServiceName=immich
+PublishPort=2004:2283

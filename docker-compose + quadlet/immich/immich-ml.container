@@ -1,0 +1,20 @@
+[Unit]
+Description=Immich Machine Learning
+Requires=podman.socket
+After=podman.socket
+
+[Container]
+AutoUpdate=registry
+ContainerName=immich-machine-learning
+Image=ghcr.io/immich-app/immich-machine-learning:release
+Pod=immich.pod
+Volume=/var/home/core/core-str/immich/cache:/cache:z
+Volume=/etc/localtime:/etc/localtime:ro
+EnvironmentFile=/var/home/core/core-str/immich/.env
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

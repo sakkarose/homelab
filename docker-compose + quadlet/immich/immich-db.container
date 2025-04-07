@@ -1,0 +1,25 @@
+[Unit]
+Description=Immich Database
+Requires=podman.socket
+After=podman.socket
+
+[Container]
+AutoUpdate=registry
+ContainerName=immich-db
+Pod=immich.pod
+Volume=/var/home/core/core-str/immich/database:/var/lib/postgresql/data:z
+Volume=/etc/localtime:/etc/localtime:ro
+Image=docker.io/tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:739cdd626151ff1f796dc95a6591b55a714f341c737e27f045019ceabf8e8c52
+EnvironmentFile=/var/home/core/core-str/immich/.env
+Environment=POSTGRES_INITDB_ARGS='--data-checksums'
+
+HealthCmd=pg_isready -d $POSTGRES_DB -U $POSTGRES_USER || exit 1; Chksum=$(psql -d $POSTGRES_DB -U $POSTGRES_USER --tuples-only --no-align --command='SELECT COALESCE(SUM(checksum_failures), 0) FROM pg_stat_database'); echo "checksum failure count is $Chksum"; [ $Chksum = 0 ] || exit 1
+Exec=postgres -c shared_preload_libraries='vectors.so' -c search_path='"$user", public, vectors' -c max_wal_size=2GB -c shared_buffers=512MB -c wal_compression=on
+HealthInterval=5m
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

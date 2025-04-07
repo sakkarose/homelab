@@ -1,16 +1,17 @@
 [Unit]
-Description=Hoarder Meilisearch
+Description=Karakeep Meilisearch
 Requires=podman.socket
 After=podman.socket
 
 [Container]
 AutoUpdate=registry
-ContainerName=hoarder-meilisearch
+ContainerName=karakeep-meilisearch
 Image=docker.io/getmeili/meilisearch:v1.11.1
 Environment=MEILI_NO_ANALYTICS=true
-EnvironmentFile=/var/home/core/core-str/hoarder/.env
-Volume=/var/home/core/core-str/hoarder/meilisearch:/meili_data:z
-Pod=hoarder.pod
+EnvironmentFile=/var/home/core/core-str/karakeep/.env
+Volume=/var/home/core/core-str/karakeep/meilisearch:/meili_data:z
+Volume=/etc/localtime:/etc/localtime:ro
+Pod=karakeep.pod
 LogDriver=json-file
 
 [Service]

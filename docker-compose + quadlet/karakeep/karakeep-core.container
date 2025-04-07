@@ -1,0 +1,23 @@
+[Unit]
+Description=Karakeep Web Application
+Requires=podman.socket
+After=podman.socket
+
+[Container]
+AutoUpdate=registry
+ContainerName=karakeep-core
+Image=ghcr.io/karakeep-app/karakeep:release
+Environment=MEILI_ADDR=http://karakeep-meilisearch:7700
+Environment=BROWSER_WEB_URL=http://karakeep-chrome:9222
+Environment=DATA_DIR=/data
+Volume=/var/home/core/core-str/karakeep/data:/data:z
+Volume=/etc/localtime:/etc/localtime:ro
+Pod=karakeep.pod
+EnvironmentFile=/var/home/core/core-str/karakeep/.env
+
+[Service]
+Restart=always
+TimeoutStartSec=900
+
+[Install]
+WantedBy=default.target

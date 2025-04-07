@@ -1,0 +1,4 @@
+[Pod]
+PodName=karakeep-pod
+ServiceName=Karakeep
+PublishPort=2001:3000

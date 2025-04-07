@@ -1,13 +1,14 @@
 [Unit]
-Description=Hoarder Chrome
+Description=Karakeep Chrome
 Requires=podman.socket
 After=podman.socket
 
 [Container]
 AutoUpdate=registry
-Pod=hoarder.pod
-ContainerName=hoarder-chrome
+Pod=karakeep.pod
+ContainerName=karakeep-chrome
 Image=gcr.io/zenika-hub/alpine-chrome:123
+Volume=/etc/localtime:/etc/localtime:ro
 Exec= --no-sandbox --disable-gpu --remote-debugging-address=0.0.0.0 --remote-debugging-port=9222 --hide-scrollbars
 #Exec=--disable-dev-shm-usage
 ShmSize=1g

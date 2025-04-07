@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./Montserrat-Regular.woff2') format('woff2');
+    font-display: swap;
+}
+
+body {
+    font-size: 1.3rem;
+    font-family: 'Montserrat';
+    font-variant-ligatures: none;
+    line-height: 1.6;
+    color: var(--color-text-base);
+    background-color: var(--color-background);
+    overflow-y: scroll;
+}

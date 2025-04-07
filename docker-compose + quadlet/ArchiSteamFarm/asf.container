@@ -6,11 +6,12 @@ After=podman.socket
 [Container]
 AutoUpdate=registry
 ContainerName=asf
-Environment=ASF_CRYPTKEY=WebUIPassword
+Environment=ASF_CRYPTKEY=yXWnuDHeARu5gLmoTteSEfA54cgYKcaA
 Image=docker.io/justarchi/archisteamfarm:latest
-PublishPort=1242:1242
+PublishPort=2000:1242
 Volume=/var/home/core/core-str/asf/config:/app/config:Z
 Volume=/var/home/core/core-str/asf/plugins:/app/plugins:Z
+Volume=/etc/localtime:/etc/localtime:ro
 
 [Service]
 #Restart=always

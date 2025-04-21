@@ -24,13 +24,15 @@ This homelab aims to create an environment for:
 | Surface Laptop 3 | 10-michi-w11ltsc | Core i5-1035G7<br>16GB RAM<br>256GB SSD | Windows 11 IoT Ent LTSC | Office workstation |
 | ThinkPad E15 | 11-mikka-w11ltsc | Core i5-10200H<br>16GB RAM<br>512GB NVMe | Windows 11 IoT Ent LTSC | Home workstation |
 | NEC LAVIE Direct HZ GN1643/4E | 13-miwa-voidmusl | Core i5-8250U<br>8GB RAM<br>512GB NVMe | Void Linux (musl) | Take-away laptop |
-| Cloud VM | N/A | N/A | Alpine 3.21 | Hosting a few applications with rootless Docker (Currently in migration to another provider) |
+| Cloud VM | 06-mitsu-coreos | N/A | Fedora CoreOS | Hosting a few applications with rootless Docker (Currently in migration to another provider) |
 
 ### Work-in-Progress
 
 - Infrastructure diagram
 
-- Hoarder stack (Quadlet)
+- Traefik stack
+
+- -arr stack
 
 ## Write-up
 
